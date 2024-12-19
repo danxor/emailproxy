@@ -27,7 +27,7 @@ $ docker run \
     danxor/emailproxy
 ```
 
-In my case I use it in conjunction with [Vaultwarden](https://hub.docker.com/r/vaultwarden/server), a self-hosted bitwarden compatible password vault. Which can be setup with the docker-compose.
+My use-case is that I use it in conjunction with [Vaultwarden](https://hub.docker.com/r/vaultwarden/server), a self-hosted [Bitwarden](https://bitwarden.com/) API-compatible password vault. Which can be setup with the docker-compose.
 
 ```yaml
 # Vaultwarden with emailproxy
