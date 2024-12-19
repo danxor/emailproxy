@@ -1,0 +1,4 @@
+aiosmtpd
+requests
+authlib
+python-dotenv
