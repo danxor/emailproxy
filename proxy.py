@@ -42,7 +42,10 @@ def main():
             if not token:
                 # Fallback on getting a new access token
                 token = handler.get_access_token(silently=False)
-                handler.save_credentials(config.credentials_file)
+                if token:
+                    handler.save_credentials(config.credentials_file)
+                else:
+                    continue
 
             timedelta = token.not_after - datetime.now()
             seconds = (timedelta.days * 86400.0) + timedelta.seconds

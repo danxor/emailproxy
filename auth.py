@@ -173,18 +173,21 @@ class DeviceCodeHandler:
         self.__device_tokens = {}
         self.__credentials = []
 
-    def get_access_token(self, silently: bool = False):
+    def get_access_token(self, silently: bool = False, force_refresh: bool = False):
         tokens = self.__get_active_credentials()
 
         if len(tokens) > 0:
-            token = tokens[0]
-            access = token.get_access_token()
-            if not access.is_valid():
-                token = self.__get_refresh_token(token)
-                if not token and silently:
-                    return None
-            else:
-                return token.get_access_token()
+            for token in tokens:
+                access = token.get_access_token()
+                if force_refresh or not access.is_valid():
+                    token = self.__get_refresh_token(token)
+                    if token:
+                        return token.get_access_token()
+                else:
+                    return token.get_access_token()
+
+            if silently:
+                return None
         elif silently:
             return None
 
@@ -315,6 +318,9 @@ def main():
     print(f'Access token: {token.access_token[0:3]}...{token.access_token[-4:-1]}')
 
     token = handler.get_access_token(silently=True)
+    print(f'Access token: {token.access_token[0:3]}...{token.access_token[-4:-1]}')
+
+    token = handler.get_access_token(silently=True, force_refresh=True)
     print(f'Access token: {token.access_token[0:3]}...{token.access_token[-4:-1]}')
 
     handler.save_credentials(config.credentials_file)

@@ -121,6 +121,7 @@ If you run the auth.py command again with valid credentials store you will not b
 $ python auth.py
 Access token: eyJ...xxx
 Access token: eyJ...xxx
+Access token: eyJ...yyy
 ```
 
 ### [smtp.py](smtp.py)
